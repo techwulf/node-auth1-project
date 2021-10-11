@@ -25,7 +25,7 @@ server.use(helmet());
 server.use(express.json());
 server.use(cors());
 server.use(session({
-  name: 'session',
+  name: 'chocolatechip',
   secret: process.env.SECRET ? process.env.SECRET : 'dev environment secret',
   cooke: {
     maxAge: 1000 * 60 * 60 * 24,

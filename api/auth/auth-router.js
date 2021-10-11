@@ -25,7 +25,27 @@ router.post(
     } catch (err) {
       next(err);
     }
-});
+  }
+);
+
+router.post(
+  '/login',
+  async (req, res, next) => {
+    try {
+      const {username, password} = req.body;
+      const user = await User.findBy({username}).first();
+      if (user && bcrypt.compareSync(password, user.password)) {
+        req.session.user = user;
+        res.status(200).json({message: `welcome ${user.username}`});
+      } else {
+        next({status: 401, message: 'invalid credentials'});
+      }
+    }
+    catch (err) {
+      next(err);
+    }
+  }
+)
 
 module.exports = router;
 
